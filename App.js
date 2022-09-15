@@ -18,15 +18,29 @@ export default function App() {
 
   const [userInputHeading, setUserInputHeading] = useState('');
   const [userInputText, setUserInputText] = useState('');
-  const [userInputImage, setUserInputImage] = useState('');
-  const [group, setGroup] = useState('museums');
+  const [userInputTitle, setUserInputTitle] = useState('');
+  const [image, setImage] = useState(null);
+  
+  const [selectedCathegory, setSelectedCathegory] = useState();
+
   const [base64, setBase64] = useState('');
+  const [isEnabledAdminMode, setIsEnabledAdminMode] = useState(true);
+  const [isEnabledDarkTheme, setIsEnabledDarkTheme] = useState(false);
 
   const url = 'http://827013-cs70445.tmweb.ru:4000/db';
-  const { data, isLoading, deletePost, addPost} = useFetch(url, userInputHeading, userInputText, base64, group);
+  const { data, isLoading, deletePost, addPost} = useFetch(url, userInputTitle, userInputText, image, selectedCathegory, setSelectedCathegory);
+
+  /*
+  useEffect(()=>{
+    if(data){
+      let defaultCathegory = data.map(e=>e.title);
+      setSelectedCathegory(defaultCathegory[0]);
+    }
+  },[data])
+*/
 
   
-  const Form = ({data, userInputHeading, setUserInputHeading, userInputText, setUserInputText, userInputImage,setUserInputImage, addPost,setGroup, setBase64})=>{
+  const Form = ({data, userInputHeading, setUserInputHeading, userInputText, setUserInputText, userInputImage,setUserInputImage, addPost,setSelectedCathegory, setBase64})=>{
 
     const userHeadingChange = (e) => setUserInputHeading(e.target.value);
     const userTextChange = (e) => setUserInputText(e.target.value);
@@ -57,39 +71,7 @@ export default function App() {
         reader.onerror = error => reject(error);
   })
 
-    return(
-        <div className='modal'>
-            <form  className='form'> 
-                <select onChange={userCathegoryChange}>
-                    {Object.keys(data).map(key =>
-                        <option key={key} value={key}>{key}</option> 
-                    )}
-                </select>
-                <input type='text'
-                    value={userInputHeading}
-                    onChange={userHeadingChange}
-                    placeholder='Заголовок'
-                    className='form__input'>
-                </input>
-                <input type='text'
-                    value={userInputText}
-                    onChange={userTextChange}
-                    placeholder='Текст'
-                    className='form__input form__input-large'>
-                </input>
-                <input 
-                    value={userInputImage}
-                    onChange={userImageChange}      
-                    type='file'
-                    placeholder='Загрузить изображение'
-                    className='form__input'>
-                </input>
-                <div className='form__buttonContainer'>
-                    <button className='btn' onClick={(e) =>addPost(e)}>Добавить запись</button>
-                </div>
-            </form>
-        </div>
-    )
+   
 }
 
   return (
@@ -128,11 +110,28 @@ export default function App() {
 
 
       
-      <Tab.Screen name="Главная"  children={()=><HomeScreen data={data}/>} 
+      <Tab.Screen name="Главная"  children={()=>
+      <HomeScreen
+      data={data}
+      isEnabledAdminMode={isEnabledAdminMode}
+      deletePost={deletePost}
+      addPost={addPost}
+      setUserInputTitle={setUserInputTitle}
+      setUserInputText={setUserInputText}
+      selectedCathegory={selectedCathegory}
+      setSelectedCathegory={setSelectedCathegory}
+      image={image}
+      setImage={setImage}
+      />} 
       />
       <Tab.Screen name="Поиск" children={()=><SearchScreen data={data}/>}
       />
-      <Tab.Screen name="Настройки" component={SettingsScreen} />
+      <Tab.Screen name="Настройки" children={()=>
+      <SettingsScreen
+      isEnabledAdminMode={isEnabledAdminMode}
+      setIsEnabledAdminMode={setIsEnabledAdminMode}
+      isEnabledDarkTheme={isEnabledDarkTheme}/>}
+      />
     </Tab.Navigator>
    </NavigationContainer>
    </>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useFetch = (initialUrl, userInputHeading, userInputText, base64, group) => {
+export const useFetch = (initialUrl, userInputHeading, userInputText, image, group, setSelectedCathegory) => {
     const [url, setUrl] = useState(initialUrl);
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -9,10 +9,10 @@ export const useFetch = (initialUrl, userInputHeading, userInputText, base64, gr
     const [refetchIndex, setRefetchIndex] = useState(0);
     
   
-    const deletePost = (e, key) =>{
-      let id = e.target.id;
-      console.log(key)
-      fetch('http://827013-cs70445.tmweb.ru:4000/'+ key + '/' +  id, {
+    const deletePost = (id, item) =>{
+      let cathegory= item.map(e=>e.title);
+
+      fetch('http://827013-cs70445.tmweb.ru:4000/'+ cathegory[0] + '/' +  id, {
         method: 'DELETE',
       })
       .then(() => setRefetchIndex((prevRefetchIndex) =>
@@ -44,7 +44,7 @@ export const useFetch = (initialUrl, userInputHeading, userInputText, base64, gr
           id: id + 1,
           heading: userInputHeading,
           text: userInputText,
-          img: base64
+          img: image
         })
       })
       .then(() => setRefetchIndex((prevRefetchIndex) =>
@@ -63,10 +63,11 @@ export const useFetch = (initialUrl, userInputHeading, userInputText, base64, gr
 
 
             Object.entries(result).forEach(([key,value]) =>{
-            modifiedData.push({title: key, data:[value]}) 
+              value.map(e=>e.title=key)
+              modifiedData.push({title: key, data:[value]}) 
             })
-
             setData(modifiedData)
+            
           }else{
             setHasError(true);
             setErrorMessage(result);

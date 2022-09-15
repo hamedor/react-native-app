@@ -1,9 +1,31 @@
-import { StyleSheet, Text,View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text,View, Image, TouchableOpacity,SectionList,Modal, TextInput } from 'react-native';
 import {useEffect} from 'react';
-import { SectionList } from 'react-native';
+import { } from 'react-native';
 import { useState } from 'react';
 
-const HomeScreen = ({data}) =>{
+import ModalWindow from '../ModalWindow/ModalWindow'
+
+const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputTitle, setUserInputText, selectedCathegory, setSelectedCathegory, image, setImage}) =>{
+  const [modalVisible, setModalVisible] = useState(true);
+
+  const ModalOpen = () => {
+    if(isEnabledAdminMode){
+      return <TouchableOpacity
+      onPress={()=> setModalVisible(!modalVisible)}>
+        <Text>Добавить пост</Text>
+      </TouchableOpacity>
+    }
+  }
+
+  const DeletePostButton = ({id, item}) =>{
+    if(isEnabledAdminMode){
+      return <TouchableOpacity
+      onPress={()=>deletePost(id, item)}>
+        <Text>Удалить</Text>
+      </TouchableOpacity>
+      
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -13,17 +35,30 @@ const HomeScreen = ({data}) =>{
                 <Text>{e.heading}</Text>
                 <Text>{e.text}</Text>
                 <Image
-        style={styles.img}
-        source={{
-          uri: e.img,
-        }}
-      />
+                  style={styles.img}
+                  source={{
+                  uri: e.img,
+                  }}/>
+                  <DeletePostButton item={item} id={e.id}/>
+      
               </View> 
             )}
             renderSectionHeader={({section: {title}}) => (
                 <Text style={{fontWeight: 'bold'}}>{title}</Text>)}
             sections={data}
         />
+        <ModalOpen/>
+        <ModalWindow
+          data={data}
+          addPost={addPost}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          setUserInputTitle={setUserInputTitle}
+          setUserInputText={setUserInputText}
+          selectedCathegory={selectedCathegory}
+          setSelectedCathegory={setSelectedCathegory}
+          image={image}
+          setImage={setImage}/>
     </View>
   );
 }
@@ -55,7 +90,14 @@ height: 44,
 img:{
   width: 50,
   height:50
-}
+},
+centeredView: {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: 22
+},
+
 });
 
 export default HomeScreen;
