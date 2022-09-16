@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text,View, Image, Item,TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text,View, Image, Item,TouchableOpacity, TextInput,  Dimensions  } from 'react-native';
+
+import MapView from 'react-native-maps';
 
 const SearchScreen = (data) =>{
     const [text, setText] = useState('');
@@ -36,6 +38,7 @@ const SearchScreen = (data) =>{
         placeholder='введите что-нибудь'
       />
       <Item/>
+      <MapView style={styles.map} />
       </View>
     )
 }
@@ -46,6 +49,10 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  map: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 });
 

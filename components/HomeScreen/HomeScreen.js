@@ -1,12 +1,20 @@
-import { StyleSheet, Text,View, Image, TouchableOpacity,SectionList,Modal, TextInput } from 'react-native';
+import { StyleSheet, Text,View, Image, TouchableOpacity,SectionList,Modal, TextInput, Button } from 'react-native';
 import {useEffect} from 'react';
 import { } from 'react-native';
 import { useState } from 'react';
 
-import ModalWindow from '../ModalWindow/ModalWindow'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
-const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputTitle, setUserInputText, selectedCathegory, setSelectedCathegory, image, setImage}) =>{
-  const [modalVisible, setModalVisible] = useState(true);
+import ModalWindow from '../ModalWindow/ModalWindow'
+import { FlatList } from 'react-native-gesture-handler';
+
+
+
+const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputTitle, setUserInputText, selectedCathegory, setSelectedCathegory,setUserInputLatitude,setUserInputLongitude, image, setImage}) =>{
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const navigation = useNavigation();
 
   const ModalOpen = () => {
     if(isEnabledAdminMode){
@@ -47,6 +55,14 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
                 <Text style={{fontWeight: 'bold'}}>{title}</Text>)}
             sections={data}
         />
+        
+       
+        
+        <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('ListScreen')}
+      />
+
         <ModalOpen/>
         <ModalWindow
           data={data}
@@ -55,6 +71,8 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
           setModalVisible={setModalVisible}
           setUserInputTitle={setUserInputTitle}
           setUserInputText={setUserInputText}
+          setUserInputLatitude={setUserInputLatitude}
+          setUserInputLongitude={setUserInputLongitude}
           selectedCathegory={selectedCathegory}
           setSelectedCathegory={setSelectedCathegory}
           image={image}

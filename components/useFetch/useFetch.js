@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useFetch = (initialUrl, userInputHeading, userInputText, image, group, setSelectedCathegory) => {
+export const useFetch = (initialUrl, userInputHeading, userInputText, userInputLatitude, userInputLongitude ,image, group, setSelectedCathegory) => {
     const [url, setUrl] = useState(initialUrl);
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +44,8 @@ export const useFetch = (initialUrl, userInputHeading, userInputText, image, gro
           id: id + 1,
           heading: userInputHeading,
           text: userInputText,
+          latitude: userInputLatitude,
+          longitude: userInputLongitude,
           img: image
         })
       })

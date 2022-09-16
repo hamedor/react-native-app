@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text,View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text,View, Button, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,16 +11,40 @@ import SettingsScreen from './components/SettingsScreen/SettingsScreen';
 import { useFetch } from './components/useFetch/useFetch';
 import {useState, useEffect} from 'react';
 
-const Stack = createNativeStackNavigator();
+import ListScreen from './components/ListScreen/ListScreen';
+import ItemScreen from './components/ItemScreen/ItemScreen';
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  
+  
+  
+  const Map = () => {
+    return (
+      <YaMap
+        userLocationIcon={{ uri: 'https://www.clipartmax.com/png/middle/180-1801760_pin-png.png' }}
+        initialRegion={{
+          lat: 50,
+          lon: 50,
+          zoom: 10,
+          azimuth: 80,
+          tilt: 100
+        }}
+        style={{ flex: 1 }}
+      />
+    );
+  };
 
-  const [userInputHeading, setUserInputHeading] = useState('');
+
+
   const [userInputText, setUserInputText] = useState('');
   const [userInputTitle, setUserInputTitle] = useState('');
+  const [userInputLatitude, setUserInputLatitude] = useState('');
+  const [userInputLongitude, setUserInputLongitude] = useState('');
   const [image, setImage] = useState(null);
-  
+  const [navCathegory, setNavCathegory] = useState('');
+
   const [selectedCathegory, setSelectedCathegory] = useState();
 
   const [base64, setBase64] = useState('');
@@ -28,7 +52,8 @@ export default function App() {
   const [isEnabledDarkTheme, setIsEnabledDarkTheme] = useState(false);
 
   const url = 'http://827013-cs70445.tmweb.ru:4000/db';
-  const { data, isLoading, deletePost, addPost} = useFetch(url, userInputTitle, userInputText, image, selectedCathegory, setSelectedCathegory);
+  const { data, isLoading, deletePost, addPost} = useFetch(url, userInputTitle, userInputText, userInputLatitude, userInputLongitude , image, selectedCathegory, setSelectedCathegory);
+
 
   /*
   useEffect(()=>{
@@ -39,40 +64,45 @@ export default function App() {
   },[data])
 */
 
-  
-  const Form = ({data, userInputHeading, setUserInputHeading, userInputText, setUserInputText, userInputImage,setUserInputImage, addPost,setSelectedCathegory, setBase64})=>{
-
-    const userHeadingChange = (e) => setUserInputHeading(e.target.value);
-    const userTextChange = (e) => setUserInputText(e.target.value);
-    const userCathegoryChange = (e) => {
-      setGroup(e.target.value)
-    }
-   
-    const userImageChange = (e) => {
-      setUserInputImage(e.target.value);
-      const file = e.target.files[0];
-      setBase64(base(file));
-    }
-  
-    async function base(file){
-      try{
-          const result = await toBase64(file)
-          setBase64(result);
-          return result
-      }catch(error){
-          console.log('ошибка')
-      }
-    }
-  
-    const toBase64 = (file) => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-  })
-
-   
+const HomeStack = createNativeStackNavigator();
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home"
+      children={()=>    
+      <HomeScreen
+      data={data}
+      isEnabledAdminMode={isEnabledAdminMode}
+      deletePost={deletePost}
+      addPost={addPost}
+      setUserInputTitle={setUserInputTitle}
+      setUserInputText={setUserInputText}
+      setUserInputLatitude={setUserInputLatitude}
+      setUserInputLongitude={setUserInputLongitude}
+      selectedCathegory={selectedCathegory}
+      setSelectedCathegory={setSelectedCathegory}
+      image={image}
+      setImage={setImage}
+      />}
+      /> 
+      <HomeStack.Screen name="ListScreen"  children={()=>    
+      
+      <ListScreen 
+        data={data}
+        setNavCathegory={setNavCathegory}
+       />} 
+      />
+      <HomeStack.Screen name="ItemScreen"  children={()=>    
+        <ItemScreen 
+        data={data}
+        navCathegory={navCathegory}
+       />} 
+      />
+    </HomeStack.Navigator>
+  );
 }
+
+
 
   return (
     <>
@@ -106,33 +136,23 @@ export default function App() {
       },
     })}
     >
+     
 
 
 
       
-      <Tab.Screen name="Главная"  children={()=>
-      <HomeScreen
-      data={data}
-      isEnabledAdminMode={isEnabledAdminMode}
-      deletePost={deletePost}
-      addPost={addPost}
-      setUserInputTitle={setUserInputTitle}
-      setUserInputText={setUserInputText}
-      selectedCathegory={selectedCathegory}
-      setSelectedCathegory={setSelectedCathegory}
-      image={image}
-      setImage={setImage}
-      />} 
-      />
+      <Tab.Screen name="Главная"  component={HomeStackScreen} />
       <Tab.Screen name="Поиск" children={()=><SearchScreen data={data}/>}
       />
       <Tab.Screen name="Настройки" children={()=>
       <SettingsScreen
-      isEnabledAdminMode={isEnabledAdminMode}
-      setIsEnabledAdminMode={setIsEnabledAdminMode}
-      isEnabledDarkTheme={isEnabledDarkTheme}/>}
+        isEnabledAdminMode={isEnabledAdminMode}
+        setIsEnabledAdminMode={setIsEnabledAdminMode}
+        isEnabledDarkTheme={isEnabledDarkTheme}/>}
       />
     </Tab.Navigator>
+
+
    </NavigationContainer>
    </>
   );

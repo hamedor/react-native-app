@@ -3,7 +3,7 @@ import {Picker} from '@react-native-picker/picker';
 import { useEffect, useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
 
-const ModalWindow = ({modalVisible, setModalVisible, data, addPost, setUserInputText, setUserInputTitle,  selectedCathegory, setSelectedCathegory, image, setImage}) =>{
+const ModalWindow = ({modalVisible, setModalVisible, data, addPost, setUserInputText, setUserInputTitle,  selectedCathegory, setSelectedCathegory,setUserInputLatitude,setUserInputLongitude, image, setImage}) =>{
 
   
 
@@ -61,6 +61,16 @@ const ModalWindow = ({modalVisible, setModalVisible, data, addPost, setUserInput
               style={styles.input}
               onChangeText={(text) =>setUserInputText(text.toLowerCase())}
               placeholder='Описание'
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) =>setUserInputLatitude(text.toLowerCase())}
+              placeholder='Широта'
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) =>setUserInputLongitude(text.toLowerCase())}
+              placeholder='Долгота'
             />
              <Button title="Выберите изображение" onPress={pickImage} />
             {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
