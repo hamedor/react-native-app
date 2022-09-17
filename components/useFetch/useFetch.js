@@ -7,7 +7,7 @@ export const useFetch = (initialUrl, userInputHeading, userInputText, userInputL
     const [hasError, setHasError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [refetchIndex, setRefetchIndex] = useState(0);
-    
+
   
     const deletePost = (id, item) =>{
       let cathegory= item.map(e=>e.title);
@@ -62,7 +62,6 @@ export const useFetch = (initialUrl, userInputHeading, userInputText, userInputL
             
           if(response.ok){
             let modifiedData = [];
-
 
             Object.entries(result).forEach(([key,value]) =>{
               value.map(e=>e.title=key)

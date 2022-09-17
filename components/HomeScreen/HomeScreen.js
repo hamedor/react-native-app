@@ -1,13 +1,12 @@
 import { StyleSheet, Text,View, Image, TouchableOpacity,SectionList,Modal, TextInput, Button } from 'react-native';
 import {useEffect} from 'react';
-import { } from 'react-native';
 import { useState } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
 import ModalWindow from '../ModalWindow/ModalWindow'
-import { FlatList } from 'react-native-gesture-handler';
+
 
 
 
