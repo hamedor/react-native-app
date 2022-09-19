@@ -11,8 +11,8 @@ import SettingsScreen from './components/SettingsScreen/SettingsScreen';
 import { useFetch } from './components/useFetch/useFetch';
 import {useState, useEffect} from 'react';
 
-import ListScreen from './components/ListScreen/ListScreen';
-import ItemScreen from './components/ItemScreen/ItemScreen';
+import ItemsListScreen from './components/ItemsListScreen/ItemsListScreen';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -72,6 +72,7 @@ function HomeStackScreen() {
       children={()=>    
       <HomeScreen
       data={data}
+      
       isEnabledAdminMode={isEnabledAdminMode}
       deletePost={deletePost}
       addPost={addPost}
@@ -83,17 +84,12 @@ function HomeStackScreen() {
       setSelectedCathegory={setSelectedCathegory}
       image={image}
       setImage={setImage}
+      setNavCathegory={setNavCathegory}
       />}
       /> 
-      <HomeStack.Screen name="ListScreen"  children={()=>    
-      
-      <ListScreen 
-        data={data}
-        setNavCathegory={setNavCathegory}
-       />} 
-      />
-      <HomeStack.Screen name="ItemScreen"  children={()=>    
-        <ItemScreen 
+   
+      <HomeStack.Screen name="ItemsListScreen"  children={()=>    
+        <ItemsListScreen 
         data={data}
         navCathegory={navCathegory}
        />} 
