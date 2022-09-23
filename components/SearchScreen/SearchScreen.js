@@ -1,20 +1,29 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text,View, Image, Item,TouchableOpacity, TextInput,  Dimensions  } from 'react-native';
+import { StyleSheet, Text,View, Image, Item,TouchableOpacity, TextInput  } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import MapView from 'react-native-maps';
 
-const SearchScreen = (data) =>{
+const SearchScreen = ({data, setItem}) =>{
     const [text, setText] = useState('');
     const [template, setTemplate] = useState([]);
+
+    const navigation = useNavigation();
+
+    const openDetails = (heading) =>{
+      navigation.navigate('Итемы');
+      setItem(heading);    
+    }
     
     useEffect(()=>{
       const Search = () =>{  
         setTemplate(Object.values(data).flat().map(e=>e.data).flat(2)
-        .filter(el=>el.heading.includes(text)).map((item)=> item));
+        .filter(el=>el.heading.toLowerCase().includes(text)).map((item)=> item));
       }
       setTemplate(Search);  
+      console.log(template)
     },[text])
 
+    
     const Item = () => {
       if(!text){
         return
@@ -25,6 +34,11 @@ const SearchScreen = (data) =>{
             <Text>
               {e.heading}
             </Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={()=> openDetails(e.heading)}> 
+              <Text style={styles.text}>Подробнее</Text>
+            </TouchableOpacity>
           </View>
         )
       )
@@ -38,7 +52,7 @@ const SearchScreen = (data) =>{
         placeholder='введите что-нибудь'
       />
       <Item/>
-      <MapView style={styles.map} />
+      
       </View>
     )
 }
@@ -50,10 +64,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
-  map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
+
 });
 
 

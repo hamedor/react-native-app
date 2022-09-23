@@ -40,7 +40,7 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
     }else{
       setNavCathegory(e._dispatchInstances.memoizedProps.children[0].props.children);
     }
-    navigation.navigate('ItemsListScreen');
+    navigation.navigate('Категории');
   }
 
   const Item = ({ title }) => (
@@ -124,24 +124,3 @@ postAdd:{
 
 export default HomeScreen;
 
-/*
-<View style={styles.container}>
-        <SectionList
-            renderItem={({item}) => item.map(e=>
-              <View key={e.id}>
-                <Text>{e.heading}</Text>
-                <Text>{e.text}</Text>
-                <Image
-                  style={styles.img}
-                  source={{
-                  uri: e.img,
-                  }}/>
-                  <DeletePostButton item={item} id={e.id}/>
-      
-              </View> 
-            )}
-            renderSectionHeader={({section: {title}}) => (
-                <Text style={{fontWeight: 'bold'}}>{title}</Text>)}
-            sections={data}
-        />
-        */

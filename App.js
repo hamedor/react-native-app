@@ -12,6 +12,7 @@ import { useFetch } from './components/useFetch/useFetch';
 import {useState, useEffect} from 'react';
 
 import ItemsListScreen from './components/ItemsListScreen/ItemsListScreen';
+import ItemScreen from './components/ItemScreen/ItemScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -44,6 +45,7 @@ export default function App() {
   const [userInputLongitude, setUserInputLongitude] = useState('');
   const [image, setImage] = useState(null);
   const [navCathegory, setNavCathegory] = useState('');
+  const [item, setItem] = useState('');
 
   const [selectedCathegory, setSelectedCathegory] = useState();
 
@@ -54,48 +56,64 @@ export default function App() {
   const url = 'http://827013-cs70445.tmweb.ru:4000/db';
   const { data, isLoading, deletePost, addPost} = useFetch(url, userInputTitle, userInputText, userInputLatitude, userInputLongitude , image, selectedCathegory, setSelectedCathegory);
 
-
-  /*
-  useEffect(()=>{
-    if(data){
-      let defaultCathegory = data.map(e=>e.title);
-      setSelectedCathegory(defaultCathegory[0]);
-    }
-  },[data])
-*/
-
-const HomeStack = createNativeStackNavigator();
-function HomeStackScreen() {
-  return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="Home"
-      children={()=>    
-      <HomeScreen
-      data={data}
-      
-      isEnabledAdminMode={isEnabledAdminMode}
-      deletePost={deletePost}
-      addPost={addPost}
-      setUserInputTitle={setUserInputTitle}
-      setUserInputText={setUserInputText}
-      setUserInputLatitude={setUserInputLatitude}
-      setUserInputLongitude={setUserInputLongitude}
-      selectedCathegory={selectedCathegory}
-      setSelectedCathegory={setSelectedCathegory}
-      image={image}
-      setImage={setImage}
-      setNavCathegory={setNavCathegory}
-      />}
+  const HomeStack = createNativeStackNavigator();
+  const HomeStackScreen = () =>{
+    return (
+      <HomeStack.Navigator>
+        <HomeStack.Screen name="Главная"
+        children={()=>    
+        <HomeScreen
+          data={data}    
+          isEnabledAdminMode={isEnabledAdminMode}
+          deletePost={deletePost}
+          addPost={addPost}
+          setUserInputTitle={setUserInputTitle}
+          setUserInputText={setUserInputText}
+          setUserInputLatitude={setUserInputLatitude}
+          setUserInputLongitude={setUserInputLongitude}
+          selectedCathegory={selectedCathegory}
+          setSelectedCathegory={setSelectedCathegory}
+          image={image}
+          setImage={setImage}
+          setNavCathegory={setNavCathegory}
+        />}
       /> 
-   
-      <HomeStack.Screen name="ItemsListScreen"  children={()=>    
+      <HomeStack.Screen name="Категории"  children={()=>    
         <ItemsListScreen 
-        data={data}
-        navCathegory={navCathegory}
-       />} 
+          data={data}
+          navCathegory={navCathegory}
+          setItem={setItem}
+        />} 
       />
+      <HomeStack.Screen name="Итемы" children={()=>
+        <ItemScreen
+          data={data}
+          item={item}
+        />}
+      /> 
     </HomeStack.Navigator>
   );
+}
+const SearchStack = createNativeStackNavigator();
+const SearchStackScreen = () =>{
+  return(
+    <SearchStack.Navigator>
+      <SearchStack.Screen name='Поиск'  children={()=>    
+        <SearchScreen
+          data={data}
+          setItem={setItem}
+          
+        />}
+      />
+       <SearchStack.Screen name="Итемы" children={()=>
+        <ItemScreen
+          data={data}
+          item={item}
+        />}
+      /> 
+      
+    </SearchStack.Navigator>
+  )
 }
 
 
@@ -104,6 +122,7 @@ function HomeStackScreen() {
     <>
    
    <NavigationContainer>
+  
     <Tab.Navigator 
     screenOptions={({route}) =>({
       tabBarIcon: ({focused, color, size}) =>{
@@ -137,14 +156,15 @@ function HomeStackScreen() {
 
 
       
-      <Tab.Screen name="Главная"  component={HomeStackScreen} />
-      <Tab.Screen name="Поиск" children={()=><SearchScreen data={data}/>}
-      />
+      <Tab.Screen name="Главная"  component={HomeStackScreen} options={{ headerShown: false }}/>
+      <Tab.Screen name="Поиск" component={SearchStackScreen} options={{ headerShown: false }}/>
       <Tab.Screen name="Настройки" children={()=>
       <SettingsScreen
         isEnabledAdminMode={isEnabledAdminMode}
         setIsEnabledAdminMode={setIsEnabledAdminMode}
-        isEnabledDarkTheme={isEnabledDarkTheme}/>}
+        isEnabledDarkTheme={isEnabledDarkTheme}
+        
+        />}
       />
     </Tab.Navigator>
 

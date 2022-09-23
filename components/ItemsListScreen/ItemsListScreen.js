@@ -1,28 +1,34 @@
 import {StyleSheet ,View,Text,Button, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import { useState } from "react";
 
-const ItemsListScreen = ({ data, setNavCathegory, navCathegory}) => {
+const ItemsListScreen = ({ data, setNavCathegory, navCathegory, setItem}) => {
 
   const navigation = useNavigation();
 
-  const openItem = (e) =>{
-    setNavCathegory(e.target.textContent);
-    navigation.navigate('ItemScreen');
+  const openDetails = (heading) =>{
+    navigation.navigate('Итемы');
+    setItem(heading);    
   }
 
   const Item = () =>{
     return(
-      Object.values(data.filter(e=> e.title=== navCathegory)
+      data.filter(e=> e.title=== navCathegory)
       .map(el=>el.data).flat(2).map(el=> 
       <View key={el.id}>
-        <Text>{el.heading}</Text>
-        <Text>{el.text}</Text>
-        <Image
+          <Image
           style={styles.img}
           source={{
             uri: el.img,
           }}/>
-        </View>)) 
+        <Text>{el.heading}</Text>
+        <Text>{el.text}</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={()=> openDetails(el.heading)}> 
+          <Text style={styles.text}>Подробнее</Text>
+        </TouchableOpacity>
+      </View>)
     )
   }
     return (
@@ -39,6 +45,7 @@ const styles = StyleSheet.create({
     width: 50,
     height:50
   },
+
 });
 
 
