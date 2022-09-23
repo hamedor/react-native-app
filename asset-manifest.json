@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/react-native-app/static/js/app.8e37a770.chunk.js",
-    "app.js.map": "/react-native-app/static/js/app.8e37a770.chunk.js.map",
+    "app.js": "/react-native-app/static/js/app.e80e716a.chunk.js",
+    "app.js.map": "/react-native-app/static/js/app.e80e716a.chunk.js.map",
     "runtime~app.js": "/react-native-app/static/js/runtime~app.8641b345.js",
     "runtime~app.js.map": "/react-native-app/static/js/runtime~app.8641b345.js.map",
-    "static/js/2.d7da109d.chunk.js": "/react-native-app/static/js/2.d7da109d.chunk.js",
-    "static/js/2.d7da109d.chunk.js.map": "/react-native-app/static/js/2.d7da109d.chunk.js.map",
+    "static/js/2.5a4f1429.chunk.js": "/react-native-app/static/js/2.5a4f1429.chunk.js",
+    "static/js/2.5a4f1429.chunk.js.map": "/react-native-app/static/js/2.5a4f1429.chunk.js.map",
     "fonts/Ionicons.ttf": "/react-native-app/./fonts/Ionicons.ttf",
     "favicon-16.png": "/react-native-app/favicon-16.png",
     "favicon-32.png": "/react-native-app/favicon-32.png",
@@ -13,11 +13,11 @@
     "index.html": "/react-native-app/index.html",
     "manifest.json": "/react-native-app/manifest.json",
     "serve.json": "/react-native-app/serve.json",
-    "static/js/2.d7da109d.chunk.js.LICENSE.txt": "/react-native-app/static/js/2.d7da109d.chunk.js.LICENSE.txt"
+    "static/js/2.5a4f1429.chunk.js.LICENSE.txt": "/react-native-app/static/js/2.5a4f1429.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.8641b345.js",
-    "static/js/2.d7da109d.chunk.js",
-    "static/js/app.8e37a770.chunk.js"
+    "static/js/2.5a4f1429.chunk.js",
+    "static/js/app.e80e716a.chunk.js"
   ]
 }
