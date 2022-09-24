@@ -18,7 +18,7 @@ const ItemScreen = ({ data, navCathegory, item}) => {
         </View>))  
   }
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Item/>
         <MapView style={styles.map} />
       </View>
@@ -26,6 +26,11 @@ const ItemScreen = ({ data, navCathegory, item}) => {
   }
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    paddingTop: 22,
+    backgroundColor:'#246BFA',
+  },
   img:{
     width: 50,
     height:50
@@ -34,6 +39,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+
 });
 
 export default ItemScreen;

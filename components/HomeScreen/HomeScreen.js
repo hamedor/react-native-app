@@ -1,4 +1,4 @@
-import { StyleSheet, Text,View, Image, TouchableOpacity,SectionList,Modal, TextInput, Button, FlatList, Platform } from 'react-native';
+import { StyleSheet,Dimensions, Text,View, Image, TouchableOpacity,SectionList,Modal, TextInput, Button, FlatList, Platform } from 'react-native';
 import {useEffect} from 'react';
 import { useState } from 'react';
 
@@ -40,12 +40,11 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
     }else{
       setNavCathegory(e._dispatchInstances.memoizedProps.children[0].props.children);
     }
-    navigation.navigate('Категории');
+      navigation.navigate('Категории');
   }
 
   const Item = ({ title }) => (
-    <TouchableOpacity
-      
+    <TouchableOpacity  
       onPress={(e) => openItem(e)}
       style={styles.item}>
       <Text style={styles.text}>{title}</Text>
@@ -58,14 +57,13 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
 
 
   return (
-    <View style={{'height': '100%'}}>
+    <View style={styles.container}>
       <View style={styles.centeredView}>
-        <Text style={styles.title}>Выберите категорию</Text>
-          <FlatList
+          <FlatList 
             data={data}
             renderItem={renderItem}
-            />
-           
+            style={styles.list}
+            />        
     </View>
     <ModalOpen/>
     <ModalWindow
@@ -89,16 +87,19 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
 
 
 const styles = StyleSheet.create({
-container: {
-flex: 1,
-paddingTop: 22,
-},
-item: {
-padding: 10,
-fontSize: 18,
-height: 44,
-borderWidth: 1,
-marginTop: 10,
+  container: {
+    flex: 1,
+    paddingTop: 22,
+    backgroundColor:'#246BFA',
+  },
+  item: {
+  height:190,
+  borderTopWidth: 1,
+  borderBottomWidth:1,
+  width: Dimensions.get('window').width,
+  marginTop: 10,
+  padding:10,
+  
 },
 img:{
   width: 50,
@@ -106,6 +107,7 @@ img:{
 },
 centeredView: {
   flex: 1,
+  flexDirection: 'column',
   justifyContent: "center",
   alignItems: "center",
   marginTop: 22

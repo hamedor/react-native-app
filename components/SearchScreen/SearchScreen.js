@@ -45,7 +45,7 @@ const SearchScreen = ({data, setItem}) =>{
     }
 
     return(
-      <View style={{flex:1, justifyContent:'flex-start', alignItems:'center'}}>
+      <View style={styles.container}>
         <TextInput
         style={styles.input}
         onChangeText={(text) =>setText(text.toLowerCase())}
@@ -57,6 +57,11 @@ const SearchScreen = ({data, setItem}) =>{
     )
 }
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 22,
+    backgroundColor:'#246BFA',
+  },
   input: {
     height: 40,
     width:300,

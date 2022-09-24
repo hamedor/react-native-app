@@ -32,7 +32,7 @@ const ItemsListScreen = ({ data, setNavCathegory, navCathegory, setItem}) => {
     )
   }
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Item/>
  
       </View>
@@ -41,6 +41,11 @@ const ItemsListScreen = ({ data, setNavCathegory, navCathegory, setItem}) => {
   
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    paddingTop: 22,
+    backgroundColor:'#246BFA',
+  },
   img:{
     width: 50,
     height:50

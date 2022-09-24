@@ -60,9 +60,15 @@ export default function App() {
   const HomeStackScreen = () =>{
     return (
       <HomeStack.Navigator>
-        <HomeStack.Screen name="Главная"
+        <HomeStack.Screen options={{
+        headerStyle:{
+          backgroundColor: '#246BFA',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,}}}
+        name="Главная"   
         children={()=>    
-        <HomeScreen
+        <HomeScreen 
           data={data}    
           isEnabledAdminMode={isEnabledAdminMode}
           deletePost={deletePost}
@@ -78,14 +84,28 @@ export default function App() {
           setNavCathegory={setNavCathegory}
         />}
       /> 
-      <HomeStack.Screen name="Категории"  children={()=>    
+      <HomeStack.Screen options={{
+        headerStyle:{
+          backgroundColor: '#246BFA',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,}}}
+      name="Категории"  
+      children={()=>    
         <ItemsListScreen 
           data={data}
           navCathegory={navCathegory}
           setItem={setItem}
         />} 
       />
-      <HomeStack.Screen name="Итемы" children={()=>
+      <HomeStack.Screen options={{
+        headerStyle:{
+          backgroundColor: '#246BFA',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,}}}
+      name="Итемы"
+      children={()=>
         <ItemScreen
           data={data}
           item={item}
@@ -98,14 +118,30 @@ const SearchStack = createNativeStackNavigator();
 const SearchStackScreen = () =>{
   return(
     <SearchStack.Navigator>
-      <SearchStack.Screen name='Поиск'  children={()=>    
-        <SearchScreen
+      <SearchStack.Screen
+      options={{
+        headerStyle:{
+          backgroundColor: '#246BFA',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,}}}
+      name='Поиск' 
+      children={()=>    
+        <SearchScreen 
+        
           data={data}
           setItem={setItem}
           
         />}
       />
-       <SearchStack.Screen name="Итемы" children={()=>
+       <SearchStack.Screen
+       options={{
+        headerStyle:{
+          backgroundColor: '#246BFA',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,}}}
+       name="Итемы" children={()=>
         <ItemScreen
           data={data}
           item={item}
@@ -144,10 +180,11 @@ const SearchStackScreen = () =>{
         
         return <Ionicons name={iconName} size={size} color={color} />
       },
-      tabBarActiveTintColor: '#287233',
+      tabBarActiveTintColor: '#fff',
       tabBarInactiveTintColor: 'gray',
       tabBarStyle: {
-          backgroundColor: '#211c13'
+          backgroundColor: '#246BFA',
+          borderTopWidth:0,
       },
     })}
     >
@@ -158,8 +195,16 @@ const SearchStackScreen = () =>{
       
       <Tab.Screen name="Главная"  component={HomeStackScreen} options={{ headerShown: false }}/>
       <Tab.Screen name="Поиск" component={SearchStackScreen} options={{ headerShown: false }}/>
-      <Tab.Screen name="Настройки" children={()=>
+      <Tab.Screen name="Настройки"
+      options={{
+        headerStyle:{
+          backgroundColor: '#246BFA',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,}}}
+      children={()=>
       <SettingsScreen
+      
         isEnabledAdminMode={isEnabledAdminMode}
         setIsEnabledAdminMode={setIsEnabledAdminMode}
         isEnabledDarkTheme={isEnabledDarkTheme}
@@ -176,8 +221,9 @@ const SearchStackScreen = () =>{
 
 const styles = StyleSheet.create({
   container: {
-    
-    backgroundColor: '#211c13',
-    
+    backgroundColor: '#211c13', 
   },
+  topBar:{
+    backgroundColor: '#211c13',
+  }
 });

@@ -6,7 +6,7 @@ const SettingsScreen = ({isEnabledAdminMode, isEnabledDarkTheme, setIsEnabledAdm
   const toggleSwitch = () => setIsEnabledAdminMode(previousState => !previousState);
 
     return(
-      <View style = {{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style = {styles.container}>
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
           thumbColor={isEnabledAdminMode ? "#f5dd4b" : "#f4f3f4"}
@@ -17,5 +17,13 @@ const SettingsScreen = ({isEnabledAdminMode, isEnabledDarkTheme, setIsEnabledAdm
       </View>
     )
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: 22,
+      backgroundColor:'#246BFA',
+    },
+  });
 
 export default SettingsScreen;
