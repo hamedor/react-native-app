@@ -1,18 +1,20 @@
-import { StyleSheet,Dimensions, Text,View, Image, TouchableOpacity,SectionList,Modal, TextInput, Button, FlatList, Platform } from 'react-native';
+import {ImageBackground, StyleSheet,Dimensions, Text,View, Image, TouchableOpacity,SectionList,Modal, TextInput, Button, FlatList, Platform } from 'react-native';
 import {useEffect} from 'react';
 import { useState } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-
+import { LinearGradient } from 'expo-linear-gradient';
 import ModalWindow from '../ModalWindow/ModalWindow'
 
+import ekatImage from '../../assets/ekat.jpg'
 
 
 const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputTitle, setUserInputText,setNavCathegory, selectedCathegory, setSelectedCathegory,setUserInputLatitude,setUserInputLongitude, image, setImage}) =>{
   const [modalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
+
 
   const ModalOpen = () => {
     if(isEnabledAdminMode){
@@ -33,6 +35,7 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
     }
   }
 
+  
 
   const openItem = (e) =>{    
     if(Platform.OS === 'web'){
@@ -43,25 +46,32 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
       navigation.navigate('Категории');
   }
 
-  const Item = ({ title }) => (
-    <TouchableOpacity  
-      onPress={(e) => openItem(e)}
-      style={styles.item}>
-      <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
-  );
+  const Item = ({item}) => (
+      <TouchableOpacity
+        style={styles.item}
+        onPress={(e) => openItem(e)}
+        >
+      
+      <View>
+        <Text style={styles.text}>
+          {item.title}
+        </Text>
+        </View>  
+      </TouchableOpacity>
+    )
 
-  const renderItem = ({ item }) => (
-    <Item title={item.title} />
-  );
 
+ // const renderItem = ({ item }) => (
+ //   <Item item={item}  />
+ // );
 
   return (
     <View style={styles.container}>
+     <ImageBackground source={ekatImage} resizeMode="cover" style={styles.image}>
       <View style={styles.centeredView}>
           <FlatList 
             data={data}
-            renderItem={renderItem}
+            renderItem={Item}
             style={styles.list}
             />        
     </View>
@@ -79,7 +89,9 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
       setSelectedCathegory={setSelectedCathegory}
       image={image}
       setImage={setImage}/>
+      </ImageBackground>
     </View>
+    
   );
 }
 
@@ -88,18 +100,24 @@ const HomeScreen = ({data, isEnabledAdminMode,deletePost, addPost, setUserInputT
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 22,
-    backgroundColor:'#246BFA',
+    flex: 1, 
   },
   item: {
-  height:190,
-  borderTopWidth: 1,
-  borderBottomWidth:1,
-  width: Dimensions.get('window').width,
-  marginTop: 10,
+  marginTop:20,
+  height:50,
+  width: Dimensions.get('window').width -30,
   padding:10,
-  
+  fontWeight: "bold",
+  backgroundColor: "#000000c0"
+  },
+  text:{
+    color:'#fff',
+    fontSize:22,
+    textAlign:'center',
+  },
+image: {
+  flex: 1,
+  justifyContent: "center"
 },
 img:{
   width: 50,
@@ -120,8 +138,7 @@ postAdd:{
   textAlign:'center',
   marginBottom:10,
   
-}
-
+},
 });
 
 export default HomeScreen;

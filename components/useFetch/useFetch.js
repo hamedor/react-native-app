@@ -65,7 +65,7 @@ export const useFetch = (initialUrl, userInputHeading, userInputText, userInputL
 
             Object.entries(result).forEach(([key,value]) =>{
               value.map(e=>e.title=key)
-              modifiedData.push({title: key, data:[value]}) 
+              modifiedData.push({className:key,title: key, data:[value]}) 
             })
             setData(modifiedData)
             

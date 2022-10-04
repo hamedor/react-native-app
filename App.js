@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text,View, Button, Image, TouchableOpacity } from 'react-native';
+import {ImageBackground, StyleSheet, Text,View, Button, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,7 +13,6 @@ import {useState, useEffect} from 'react';
 
 import ItemsListScreen from './components/ItemsListScreen/ItemsListScreen';
 import ItemScreen from './components/ItemScreen/ItemScreen';
-
 
 const Tab = createBottomTabNavigator();
 
@@ -62,7 +61,7 @@ export default function App() {
       <HomeStack.Navigator>
         <HomeStack.Screen options={{
         headerStyle:{
-          backgroundColor: '#246BFA',
+          backgroundColor: '#6183a6',
           elevation: 0,
           shadowOpacity: 0,
           borderBottomWidth: 0,}}}
@@ -86,7 +85,7 @@ export default function App() {
       /> 
       <HomeStack.Screen options={{
         headerStyle:{
-          backgroundColor: '#246BFA',
+          backgroundColor: '#6183a6',
           elevation: 0,
           shadowOpacity: 0,
           borderBottomWidth: 0,}}}
@@ -100,7 +99,7 @@ export default function App() {
       />
       <HomeStack.Screen options={{
         headerStyle:{
-          backgroundColor: '#246BFA',
+          backgroundColor: '#6183a6',
           elevation: 0,
           shadowOpacity: 0,
           borderBottomWidth: 0,}}}
@@ -158,7 +157,7 @@ const SearchStackScreen = () =>{
     <>
    
    <NavigationContainer>
-  
+   
     <Tab.Navigator 
     screenOptions={({route}) =>({
       tabBarIcon: ({focused, color, size}) =>{
@@ -183,7 +182,7 @@ const SearchStackScreen = () =>{
       tabBarActiveTintColor: '#fff',
       tabBarInactiveTintColor: 'gray',
       tabBarStyle: {
-          backgroundColor: '#246BFA',
+          backgroundColor: '#163538',
           borderTopWidth:0,
       },
     })}
@@ -212,9 +211,8 @@ const SearchStackScreen = () =>{
         />}
       />
     </Tab.Navigator>
-
-
    </NavigationContainer>
+  
    </>
   );
 }
@@ -225,5 +223,6 @@ const styles = StyleSheet.create({
   },
   topBar:{
     backgroundColor: '#211c13',
-  }
+  },
+
 });
